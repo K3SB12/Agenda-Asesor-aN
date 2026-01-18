@@ -3,278 +3,578 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitácora Diaria - Informes y Gestión</title>
-    <style>
-        /* Estilo Neumorphism Innovador */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .section {
-            background: #e6e6e6;
-            border-radius: 15px;
-            box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        h2 {
-            margin-top: 0;
-            color: #555;
-        }
-        input, button, textarea {
-            border: none;
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
-            background: #e6e6e6;
-            margin: 5px 0;
-        }
-        button {
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover {
-            box-shadow: 5px 5px 15px #bebebe, -5px -5px 15px #ffffff;
-        }
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-        }
-        .day {
-            padding: 10px;
-            border-radius: 10px;
-            background: #e6e6e6;
-            box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
-            cursor: pointer;
-        }
-        .day:hover {
-            background: #d0d0d0;
-        }
-        .task-list {
-            list-style: none;
-            padding: 0;
-        }
-        .task-list li {
-            background: #f0f0f0;
-            margin: 5px 0;
-            padding: 5px;
-            border-radius: 5px;
-        }
-        .gallery img {
-            max-width: 100px;
-            margin: 5px;
-            border-radius: 10px;
-            box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
-        }
-        .links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .links a {
-            text-decoration: none;
-            color: #333;
-            padding: 10px;
-            border-radius: 10px;
-            background: #e6e6e6;
-            box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
-        }
-        .print-section {
-            margin-top: 20px;
-        }
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>Bitácora Diaria Mejorada - Agenda DRTE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Aquí va el CSS completo (Parte 2) -->
+    /* Estilo Neumorphism Avanzado con Animaciones */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    transition: background 0.5s ease;
+}
+body.dark-mode {
+    background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+    color: #ccc;
+}
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+.section {
+    background: #e6e6e6;
+    border-radius: 20px;
+    box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 20px 20px 40px #bebebe, -20px -20px 40px #ffffff;
+}
+body.dark-mode .section {
+    background: #2a2a2a;
+    box-shadow: 15px 15px 30px #1a1a1a, -15px -15px 30px #3a3a3a;
+}
+h2 {
+    margin-top: 0;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+body.dark-mode h2 {
+    color: #aaa;
+}
+input, button, textarea, select {
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+    background: #e6e6e6;
+    margin: 8px 0;
+    transition: box-shadow 0.3s ease;
+}
+body.dark-mode input, body.dark-mode button, body.dark-mode textarea, body.dark-mode select {
+    background: #2a2a2a;
+    box-shadow: inset 5px 5px 10px #1a1a1a, inset -5px -5px 10px #3a3a3a;
+}
+button {
+    cursor: pointer;
+    background: linear-gradient(135deg, #4fc3f7, #81c784);
+    color: white;
+    font-weight: bold;
+}
+button:hover {
+    box-shadow: 5px 5px 15px #bebebe, -5px -5px 15px #ffffff;
+}
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.gallery img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.gallery img:hover {
+    transform: scale(1.1);
+}
+.file-list {
+    list-style: none;
+    padding: 0;
+}
+.file-list li {
+    background: #f0f0f0;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+body.dark-mode .file-list li {
+    background: #3a3a3a;
+}
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+.day {
+    padding: 12px;
+    border-radius: 12px;
+    background: #e6e6e6;
+    box-shadow: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s ease;
+}
+.day.has-tasks {
+    background: #81c784;
+    color: white;
+}
+.day:hover {
+    background: #d0d0d0;
+}
+body.dark-mode .day {
+    background: #2a2a2a;
+    box-shadow: inset 3px 3px 6px #1a1a1a, inset -3px -3px 6px #3a3a3a;
+}
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+.task-list li {
+    background: #f9f9f9;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+}
+body.dark-mode .task-list li {
+    background: #3a3a3a;
+}
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.links a, .custom-links a {
+    text-decoration: none;
+    color: #333;
+    padding: 12px;
+    border-radius: 12px;
+    background: #e6e6e6;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+    transition: transform 0.3s ease;
+}
+.links a:hover, .custom-links a:hover {
+    transform: translateY(-3px);
+}
+body.dark-mode .links a, body.dark-mode .custom-links a {
+    color: #ccc;
+    background: #2a2a2a;
+    box-shadow: 5px 5px 10px #1a1a1a, -5px -5px 10px #3a3a3a;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal img {
+    max-width: 90%;
+    max-height: 90%;
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4fc3f7;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+}
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    .gallery img {
+        width: 80px;
+        height: 80px;
+    }
+}
 </head>
 <body>
-    <h1>Bitácora Diaria - Informes y Gestión</h1>
+    <header style="text-align: center; margin-bottom: 20px;">
+        <h1><i class="fas fa-calendar-alt"></i> Bitácora Diaria Mejorada - Agenda DRTE</h1>
+        <button id="darkModeToggle"><i class="fas fa-moon"></i> Modo Oscuro</button>
+        <input type="text" id="searchInput" placeholder="Buscar en la página..." style="width: 200px;">
+    </header>
     <div class="container">
         <!-- Sección de Capturas de Pantalla -->
         <div class="section">
-            <h2>Capturas de Pantalla (JPG)</h2>
-            <input type="file" id="screenshotInput" accept=".jpg,.jpeg" multiple>
+            <h2><i class="fas fa-camera"></i> Capturas de Pantalla (JPG)</h2>
+            <div id="dropZone" style="border: 2px dashed #ccc; padding: 20px; text-align: center; border-radius: 12px;">
+                Arrastra y suelta imágenes JPG aquí o <input type="file" id="screenshotInput" accept=".jpg,.jpeg" multiple style="display: none;">
+                <button onclick="document.getElementById('screenshotInput').click()">Seleccionar Archivos</button>
+            </div>
             <button onclick="addScreenshots()">Agregar Capturas</button>
             <div class="gallery" id="gallery"></div>
         </div>
 
         <!-- Sección de Subida de Archivos -->
         <div class="section">
-            <h2>Subir Archivos Diarios (Docs, CSV, PPT, Excel, PDF)</h2>
-            <input type="file" id="fileInput" accept=".doc,.docx,.csv,.ppt,.pptx,.xls,.xlsx,.pdf" multiple>
+            <h2><i class="fas fa-upload"></i> Subir Archivos Diarios (Docs, CSV, PPT, Excel, PDF)</h2>
+            <div id="fileDropZone" style="border: 2px dashed #ccc; padding: 20px; text-align: center; border-radius: 12px;">
+                Arrastra y suelta archivos aquí o <input type="file" id="fileInput" accept=".doc,.docx,.csv,.ppt,.pptx,.xls,.xlsx,.pdf" multiple style="display: none;">
+                <button onclick="document.getElementById('fileInput').click()">Seleccionar Archivos</button>
+            </div>
             <button onclick="uploadFiles()">Subir Archivos</button>
-            <ul id="fileList"></ul>
+            <ul class="file-list" id="fileList"></ul>
         </div>
 
         <!-- Sección de Calendario -->
         <div class="section">
-            <h2>Calendario de Tareas</h2>
-            <select id="monthSelect" onchange="loadCalendar()">
-                <option value="0">Enero</option>
-                <option value="1">Febrero</option>
-                <option value="2">Marzo</option>
-                <option value="3">Abril</option>
-                <option value="4">Mayo</option>
-                <option value="5">Junio</option>
-                <option value="6">Julio</option>
-                <option value="7">Agosto</option>
-                <option value="8">Septiembre</option>
-                <option value="9">Octubre</option>
-                <option value="10">Noviembre</option>
-                <option value="11">Diciembre</option>
-            </select>
+            <h2><i class="fas fa-calendar"></i> Calendario de Tareas</h2>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                <select id="monthSelect" onchange="loadCalendar()">
+                    <option value="0">Enero</option>
+                    <option value="1">Febrero</option>
+                    <option value="2">Marzo</option>
+                    <option value="3">Abril</option>
+                    <option value="4">Mayo</option>
+                    <option value="5">Junio</option>
+                    <option value="6">Julio</option>
+                    <option value="7">Agosto</option>
+                    <option value="8">Septiembre</option>
+                    <option value="9">Octubre</option>
+                    <option value="10">Noviembre</option>
+                    <option value="11">Diciembre</option>
+                </select>
+                <input type="number" id="yearSelect" value="2023" onchange="loadCalendar()" style="width: 80px;">
+                <button onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
             <div id="calendar"></div>
             <input type="text" id="taskInput" placeholder="Nueva tarea">
             <button onclick="addTask()">Agregar Tarea al Día Seleccionado</button>
+            <div id="taskDisplay" style="margin-top: 20px;"></div>
         </div>
 
         <!-- Sección de Enlaces -->
         <div class="section">
-            <h2>Enlaces Rápidos</h2>
+            <h2><i class="fas fa-link"></i> Enlaces Rápidos</h2>
             <div class="links">
-                <a href="https://www.youtube.com" target="_blank">YouTube</a>
-                <a href="https://repositorio.pnft.cl" target="_blank">Repositorio PNFT</a> <!-- Ajusta el enlace si es específico -->
-                <a href="https://outlook.live.com" target="_blank">Correo Outlook</a>
-                <a href="https://www.onenote.com" target="_blank">OneNote</a>
-                <a href="https://www.symbaloo.com" target="_blank">Symbaloo</a>
+                <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="https://repositorio.pnft.cl" target="_blank"><i class="fas fa-archive"></i> Repositorio PNFT</a>
+                <a href="https://outlook.live.com" target="_blank"><i class="fas fa-envelope"></i> Correo Outlook</a>
+                <a href="https://www.onenote.com" target="_blank"><i class="fas fa-sticky-note"></i> OneNote</a>
+                <a href="https://www.symbaloo.com" target="_blank"><i class="fas fa-th"></i> Symbaloo</a>
             </div>
             <h3>Sitios de Interés (Editar)</h3>
             <input type="text" id="siteInput" placeholder="URL del sitio">
             <button onclick="addSite()">Agregar Sitio</button>
-            <ul id="siteList"></ul>
+            <div class="custom-links" id="siteList"></div>
         </div>
 
-        <!-- Sección de Impresión -->
-        <div class="section print-section">
-            <h2>Imprimir Informes</h2>
+        <!-- Sección de Impresión y Exportación -->
+        <div class="section">
+            <h2><i class="fas fa-print"></i> Impresión y Exportación de Informes</h2>
             <button onclick="printReport('daily')">Imprimir Diario</button>
             <button onclick="printReport('weekly')">Imprimir Semanal</button>
             <button onclick="printReport('biweekly')">Imprimir Quincenal</button>
             <button onclick="printReport('monthly')">Imprimir Mensual</button>
+            <button onclick="exportToPDF()">Exportar a PDF</button>
+            <button onclick="exportTasksToCSV()">Exportar Tareas a CSV</button>
         </div>
     </div>
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <img id="modalImage" src="">
+    </div>
+    <div class="toast" id="toast">Acción completada</div>
+    <footer style="text-align: center; margin-top: 20px; padding: 10px; background: #e6e6e6; border-radius: 12px;">
+        <p>Desarrollado con <i class="fas fa-heart"></i> | <a href="#" onclick="showHelp()">Ayuda</a></p>
+    </footer>
 
-    <script>
-        // Variables globales
-        let selectedDay = null;
-        let currentMonth = 0;
+    <!-- Librerías externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+    <!-- Aquí va el JavaScript completo (Parte 3) -->
+    // Variables globales
+let selectedDay = null;
+let currentMonth = 0;
+let currentYear = 2023;
+let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
 
-        // Cargar datos desde localStorage
-        function loadData() {
-            document.getElementById('gallery').innerHTML = localStorage.getItem('screenshots') || '';
-            document.getElementById('fileList').innerHTML = localStorage.getItem('files') || '';
-            document.getElementById('siteList').innerHTML = localStorage.getItem('sites') || '';
-            loadCalendar();
+// Cargar datos desde localStorage (con compresión)
+function loadData() {
+    try {
+        document.getElementById('gallery').innerHTML = LZString.decompress(localStorage.getItem('screenshots')) || '';
+        document.getElementById('fileList').innerHTML = LZString.decompress(localStorage.getItem('files')) || '';
+        document.getElementById('siteList').innerHTML = LZString.decompress(localStorage.getItem('sites')) || '';
+        loadCalendar();
+    } catch (e) {
+        console.error('Error cargando datos:', e);
+    }
+}
+
+// Guardar datos en localStorage (con compresión)
+function saveData() {
+    try {
+        localStorage.setItem('screenshots', LZString.compress(document.getElementById('gallery').innerHTML));
+        localStorage.setItem('files', LZString.compress(document.getElementById('fileList').innerHTML));
+        localStorage.setItem('sites', LZString.compress(document.getElementById('siteList').innerHTML));
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    } catch (e) {
+        console.error('Error guardando datos:', e);
+    }
+}
+
+// Agregar capturas de pantalla con drag-and-drop y zoom
+function addScreenshots() {
+    const input = document.getElementById('screenshotInput');
+    const files = input.files;
+    const gallery = document.getElementById('gallery');
+    for (let file of files) {
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.onclick = () => openModal(e.target.result);
+                gallery.appendChild(img);
+            };
+            reader.readAsDataURL(file);
         }
+    }
+    saveData();
+    showToast('Capturas agregadas');
+}
 
-        // Agregar capturas de pantalla
-        function addScreenshots() {
-            const input = document.getElementById('screenshotInput');
-            const gallery = document.getElementById('gallery');
-            for (let file of input.files) {
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        gallery.innerHTML += `<img src="${reader.result}" alt="Captura">`;
-                        localStorage.setItem('screenshots', gallery.innerHTML);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
+// Drag-and-drop para capturas
+document.getElementById('dropZone').addEventListener('dragover', (e) => e.preventDefault());
+document.getElementById('dropZone').addEventListener('drop', (e) => {
+    e.preventDefault();
+    document.getElementById('screenshotInput').files = e.dataTransfer.files;
+    addScreenshots();
+});
+
+// Subir archivos con drag-and-drop y previews
+function uploadFiles() {
+    const input = document.getElementById('fileInput');
+    const files = input.files;
+    const fileList = document.getElementById('fileList');
+    for (let file of files) {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(file);
+        link.download = file.name;
+        link.textContent = file.name;
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Eliminar';
+        deleteBtn.onclick = () => { li.remove(); saveData(); };
+        li.appendChild(link);
+        li.appendChild(deleteBtn);
+        fileList.appendChild(li);
+    }
+    saveData();
+    showToast('Archivos subidos');
+}
+
+// Drag-and-drop para archivos
+document.getElementById('fileDropZone').addEventListener('dragover', (e) => e.preventDefault());
+document.getElementById('fileDropZone').addEventListener('drop', (e) => {
+    e.preventDefault();
+    document.getElementById('fileInput').files = e.dataTransfer.files;
+    uploadFiles();
+});
+
+// Calendario dinámico
+function loadCalendar() {
+    currentMonth = parseInt(document.getElementById('monthSelect').value);
+    currentYear = parseInt(document.getElementById('yearSelect').value);
+    const calendar = document.getElementById('calendar');
+    calendar.innerHTML = '';
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    for (let i = 0; i < firstDay; i++) {
+        calendar.appendChild(document.createElement('div'));
+    }
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day';
+        dayDiv.textContent = day;
+        const key = `${currentYear}-${currentMonth}-${day}`;
+        if (tasks[key] && tasks[key].length > 0) {
+            dayDiv.classList.add('has-tasks');
         }
+        dayDiv.onclick = () => selectDay(day);
+        calendar.appendChild(dayDiv);
+    }
+}
 
-        // Subir archivos
-        function uploadFiles() {
-            const input = document.getElementById('fileInput');
-            const list = document.getElementById('fileList');
-            for (let file of input.files) {
-                list.innerHTML += `<li>${file.name}</li>`;
-            }
-            localStorage.setItem('files', list.innerHTML);
-        }
+// Seleccionar día y mostrar tareas
+function selectDay(day) {
+    selectedDay = day;
+    const key = `${currentYear}-${currentMonth}-${day}`;
+    const taskDisplay = document.getElementById('taskDisplay');
+    taskDisplay.innerHTML = `<h3>Tareas para ${day}/${currentMonth + 1}/${currentYear}</h3>`;
+    if (tasks[key]) {
+        const ul = document.createElement('ul');
+        ul.className = 'task-list';
+        tasks[key].forEach((task, index) => {
+            const li = document.createElement('li');
+            li.textContent = task;
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Eliminar';
+            deleteBtn.onclick = () => { tasks[key].splice(index, 1); saveData(); selectDay(day); };
+            li.appendChild(deleteBtn);
+            ul.appendChild(li);
+        });
+        taskDisplay.appendChild(ul);
+    }
+}
 
-        // Cargar calendario
-        function loadCalendar() {
-            currentMonth = parseInt(document.getElementById('monthSelect').value);
-            const calendar = document.getElementById('calendar');
-            calendar.innerHTML = '';
-            const daysInMonth = new Date(2023, currentMonth + 1, 0).getDate(); // Ejemplo para 2023
-            for (let i = 1; i <= daysInMonth; i++) {
-                const dayDiv = document.createElement('div');
-                dayDiv.className = 'day';
-                dayDiv.textContent = i;
-                dayDiv.onclick = () => selectDay(i);
-                const tasks = JSON.parse(localStorage.getItem(`tasks-${currentMonth}-${i}`) || '[]');
-                if (tasks.length) {
-                    dayDiv.innerHTML += '<ul class="task-list">' + tasks.map(t => `<li>${t}</li>`).join('') + '</ul>';
-                }
-                calendar.appendChild(dayDiv);
-            }
-        }
+// Agregar tarea
+function addTask() {
+    const taskInput = document.getElementById('taskInput');
+    if (selectedDay && taskInput.value.trim()) {
+        const key = `${currentYear}-${currentMonth}-${selectedDay}`;
+        if (!tasks[key]) tasks[key] = [];
+        tasks[key].push(taskInput.value.trim());
+        taskInput.value = '';
+        saveData();
+        loadCalendar();
+        selectDay(selectedDay);
+        showToast('Tarea agregada');
+    } else {
+        showToast('Selecciona un día y escribe una tarea');
+    }
+}
 
-        // Seleccionar día
-        function selectDay(day) {
-            selectedDay = day;
-            alert(`Día ${day} seleccionado para agregar tarea.`);
-        }
+// Cambiar mes
+function changeMonth(delta) {
+    currentMonth += delta;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    } else if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    document.getElementById('monthSelect').value = currentMonth;
+    document.getElementById('yearSelect').value = currentYear;
+    loadCalendar();
+}
 
-        // Agregar tarea
-        function addTask() {
-            if (!selectedDay) return alert('Selecciona un día primero.');
-            const task = document.getElementById('taskInput').value;
-            if (!task) return;
-            const tasks = JSON.parse(localStorage.getItem(`tasks-${currentMonth}-${selectedDay}`) || '[]');
-            tasks.push(task);
-            localStorage.setItem(`tasks-${currentMonth}-${selectedDay}`, JSON.stringify(tasks));
-            loadCalendar();
-            document.getElementById('taskInput').value = '';
-        }
+// Agregar sitio
+function addSite() {
+    const siteInput = document.getElementById('siteInput');
+    if (siteInput.value.trim()) {
+        const siteList = document.getElementById('siteList');
+        const a = document.createElement('a');
+        a.href = siteInput.value.trim();
+        a.target = '_blank';
+        a.textContent = siteInput.value.trim();
+        siteList.appendChild(a);
+        siteInput.value = '';
+        saveData();
+        showToast('Sitio agregado');
+    }
+}
 
-        // Agregar sitio de interés
-        function addSite() {
-            const input = document.getElementById('siteInput');
-            const list = document.getElementById('siteList');
-            if (input.value) {
-                list.innerHTML += `<li><a href="${input.value}" target="_blank">${input.value}</a> <button onclick="removeSite(this)">Quitar</button></li>`;
-                localStorage.setItem('sites', list.innerHTML);
-                input.value = '';
-            }
-        }
+// Imprimir informes
+function printReport(type) {
+    let content = '';
+    if (type === 'daily') {
+        content = 'Informe Diario: ' + new Date().toLocaleDateString();
+    } else if (type === 'weekly') {
+        content = 'Informe Semanal: Semana del ' + new Date().toLocaleDateString();
+    } else if (type === 'biweekly') {
+        content = 'Informe Quincenal: Quincena del ' + new Date().toLocaleDateString();
+    } else if (type === 'monthly') {
+        content = 'Informe Mensual: ' + new Date().toLocaleDateString();
+    }
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>Informe</title></head><body>' + content + '</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
 
-        // Quitar sitio
-        function removeSite(btn) {
-            btn.parentElement.remove();
-            localStorage.setItem('sites', document.getElementById('siteList').innerHTML);
-        }
+// Exportar a PDF
+function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.text('Informe de Bitácora Diaria', 10, 10);
+    doc.save('informe.pdf');
+    showToast('PDF exportado');
+}
 
-        // Imprimir informe
-        function printReport(type) {
-            // Generar resumen simple basado en datos guardados
-            let content = `<h1>Informe ${type.charAt(0).toUpperCase() + type.slice(1)}</h1>`;
-            content += `<p>Capturas: ${document.getElementById('gallery').innerHTML}</p>`;
-            content += `<p>Archivos: ${document.getElementById('fileList').innerHTML}</p>`;
-            // Agregar lógica para tareas según tipo (simplificado)
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(content);
-            printWindow.document.close();
-            printWindow.print();
-        }
+// Exportar tareas a CSV
+function exportTasksToCSV() {
+    let csv = 'Fecha,Tarea\n';
+    for (const key in tasks) {
+        tasks[key].forEach(task => {
+            csv += `${key},${task}\n`;
+        });
+    }
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'tareas.csv';
+    a.click();
+    showToast('CSV exportado');
+}
 
-        // Inicializar
-        window.onload = loadData;
-    </script>
+// Modal para imágenes
+function openModal(src) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modalImg.src = src;
+    modal.style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+}
+
+// Notificaciones toast
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.display = 'block';
+    setTimeout(() => toast.style.display = 'none', 3000);
+}
+
+// Ayuda
+function showHelp() {
+    alert('Esta es una bitácora diaria mejorada. Usa las secciones para agregar capturas, archivos, tareas y enlaces. Todo se guarda localmente.');
+}
+
+// Modo oscuro
+document.getElementById('darkModeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+});
+
+// Búsqueda global
+document.getElementById('searchInput').addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        const text = section.textContent.toLowerCase();
+        section.style.display = text.includes(query) ? 'block' : 'none';
+    });
+});
+
+// Inicializar
+window.onload = () => {
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+    loadData();
+};
 </body>
 </html>
