@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácora Diaria - Informes y Gestión</title>
+    <style>
+        /* Estilo Neumorphism Innovador */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .section {
+            background: #e6e6e6;
+            border-radius: 15px;
+            box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #555;
+        }
+        input, button, textarea {
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+            background: #e6e6e6;
+            margin: 5px 0;
+        }
+        button {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            box-shadow: 5px 5px 15px #bebebe, -5px -5px 15px #ffffff;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        .day {
+            padding: 10px;
+            border-radius: 10px;
+            background: #e6e6e6;
+            box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+            cursor: pointer;
+        }
+        .day:hover {
+            background: #d0d0d0;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+        .task-list li {
+            background: #f0f0f0;
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .gallery img {
+            max-width: 100px;
+            margin: 5px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+        }
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .links a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            background: #e6e6e6;
+            box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+        }
+        .print-section {
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Bitácora Diaria - Informes y Gestión</h1>
+    <div class="container">
+        <!-- Sección de Capturas de Pantalla -->
+        <div class="section">
+            <h2>Capturas de Pantalla (JPG)</h2>
+            <input type="file" id="screenshotInput" accept=".jpg,.jpeg" multiple>
+            <button onclick="addScreenshots()">Agregar Capturas</button>
+            <div class="gallery" id="gallery"></div>
+        </div>
+
+        <!-- Sección de Subida de Archivos -->
+        <div class="section">
+            <h2>Subir Archivos Diarios (Docs, CSV, PPT, Excel, PDF)</h2>
+            <input type="file" id="fileInput" accept=".doc,.docx,.csv,.ppt,.pptx,.xls,.xlsx,.pdf" multiple>
+            <button onclick="uploadFiles()">Subir Archivos</button>
+            <ul id="fileList"></ul>
+        </div>
+
+        <!-- Sección de Calendario -->
+        <div class="section">
+            <h2>Calendario de Tareas</h2>
+            <select id="monthSelect" onchange="loadCalendar()">
+                <option value="0">Enero</option>
+                <option value="1">Febrero</option>
+                <option value="2">Marzo</option>
+                <option value="3">Abril</option>
+                <option value="4">Mayo</option>
+                <option value="5">Junio</option>
+                <option value="6">Julio</option>
+                <option value="7">Agosto</option>
+                <option value="8">Septiembre</option>
+                <option value="9">Octubre</option>
+                <option value="10">Noviembre</option>
+                <option value="11">Diciembre</option>
+            </select>
+            <div id="calendar"></div>
+            <input type="text" id="taskInput" placeholder="Nueva tarea">
+            <button onclick="addTask()">Agregar Tarea al Día Seleccionado</button>
+        </div>
+
+        <!-- Sección de Enlaces -->
+        <div class="section">
+            <h2>Enlaces Rápidos</h2>
+            <div class="links">
+                <a href="https://www.youtube.com" target="_blank">YouTube</a>
+                <a href="https://repositorio.pnft.cl" target="_blank">Repositorio PNFT</a> <!-- Ajusta el enlace si es específico -->
+                <a href="https://outlook.live.com" target="_blank">Correo Outlook</a>
+                <a href="https://www.onenote.com" target="_blank">OneNote</a>
+                <a href="https://www.symbaloo.com" target="_blank">Symbaloo</a>
+            </div>
+            <h3>Sitios de Interés (Editar)</h3>
+            <input type="text" id="siteInput" placeholder="URL del sitio">
+            <button onclick="addSite()">Agregar Sitio</button>
+            <ul id="siteList"></ul>
+        </div>
+
+        <!-- Sección de Impresión -->
+        <div class="section print-section">
+            <h2>Imprimir Informes</h2>
+            <button onclick="printReport('daily')">Imprimir Diario</button>
+            <button onclick="printReport('weekly')">Imprimir Semanal</button>
+            <button onclick="printReport('biweekly')">Imprimir Quincenal</button>
+            <button onclick="printReport('monthly')">Imprimir Mensual</button>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let selectedDay = null;
+        let currentMonth = 0;
+
+        // Cargar datos desde localStorage
+        function loadData() {
+            document.getElementById('gallery').innerHTML = localStorage.getItem('screenshots') || '';
+            document.getElementById('fileList').innerHTML = localStorage.getItem('files') || '';
+            document.getElementById('siteList').innerHTML = localStorage.getItem('sites') || '';
+            loadCalendar();
+        }
+
+        // Agregar capturas de pantalla
+        function addScreenshots() {
+            const input = document.getElementById('screenshotInput');
+            const gallery = document.getElementById('gallery');
+            for (let file of input.files) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        gallery.innerHTML += `<img src="${reader.result}" alt="Captura">`;
+                        localStorage.setItem('screenshots', gallery.innerHTML);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        // Subir archivos
+        function uploadFiles() {
+            const input = document.getElementById('fileInput');
+            const list = document.getElementById('fileList');
+            for (let file of input.files) {
+                list.innerHTML += `<li>${file.name}</li>`;
+            }
+            localStorage.setItem('files', list.innerHTML);
+        }
+
+        // Cargar calendario
+        function loadCalendar() {
+            currentMonth = parseInt(document.getElementById('monthSelect').value);
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = '';
+            const daysInMonth = new Date(2023, currentMonth + 1, 0).getDate(); // Ejemplo para 2023
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'day';
+                dayDiv.textContent = i;
+                dayDiv.onclick = () => selectDay(i);
+                const tasks = JSON.parse(localStorage.getItem(`tasks-${currentMonth}-${i}`) || '[]');
+                if (tasks.length) {
+                    dayDiv.innerHTML += '<ul class="task-list">' + tasks.map(t => `<li>${t}</li>`).join('') + '</ul>';
+                }
+                calendar.appendChild(dayDiv);
+            }
+        }
+
+        // Seleccionar día
+        function selectDay(day) {
+            selectedDay = day;
+            alert(`Día ${day} seleccionado para agregar tarea.`);
+        }
+
+        // Agregar tarea
+        function addTask() {
+            if (!selectedDay) return alert('Selecciona un día primero.');
+            const task = document.getElementById('taskInput').value;
+            if (!task) return;
+            const tasks = JSON.parse(localStorage.getItem(`tasks-${currentMonth}-${selectedDay}`) || '[]');
+            tasks.push(task);
+            localStorage.setItem(`tasks-${currentMonth}-${selectedDay}`, JSON.stringify(tasks));
+            loadCalendar();
+            document.getElementById('taskInput').value = '';
+        }
+
+        // Agregar sitio de interés
+        function addSite() {
+            const input = document.getElementById('siteInput');
+            const list = document.getElementById('siteList');
+            if (input.value) {
+                list.innerHTML += `<li><a href="${input.value}" target="_blank">${input.value}</a> <button onclick="removeSite(this)">Quitar</button></li>`;
+                localStorage.setItem('sites', list.innerHTML);
+                input.value = '';
+            }
+        }
+
+        // Quitar sitio
+        function removeSite(btn) {
+            btn.parentElement.remove();
+            localStorage.setItem('sites', document.getElementById('siteList').innerHTML);
+        }
+
+        // Imprimir informe
+        function printReport(type) {
+            // Generar resumen simple basado en datos guardados
+            let content = `<h1>Informe ${type.charAt(0).toUpperCase() + type.slice(1)}</h1>`;
+            content += `<p>Capturas: ${document.getElementById('gallery').innerHTML}</p>`;
+            content += `<p>Archivos: ${document.getElementById('fileList').innerHTML}</p>`;
+            // Agregar lógica para tareas según tipo (simplificado)
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(content);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        // Inicializar
+        window.onload = loadData;
+    </script>
+</body>
+</html>
